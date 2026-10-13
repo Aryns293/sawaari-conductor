@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sawaari — The Conductor's Digital Companion · Design Assignment</title>
+<meta name="description" content="A one-thumb, four-second, full-sun ticketing app for bus conductors. Nielsen Product Design Internship — design assignment, Brief 1.">
+<meta name="theme-color" content="#0a0b0d">
+<meta property="og:title" content="Sawaari — The Conductor's Digital Companion">
+<meta property="og:description" content="One hand. Four seconds. Full sun. An interactive ticketing prototype for BMTC & BEST conductors.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFD60A'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Arial' font-weight='bold' text-anchor='middle' fill='%230A0B0D'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#top">Sawaari<span class="brand-dot">◆</span><span class="brand-sub">Design assignment · Brief 1</span></a>
+  <nav class="topnav">
+    <a href="#problem">Problem</a>
+    <a href="#flow">Flow</a>
+    <a href="#reach">Reachability</a>
+    <a href="#edges">Edge cases</a>
+    <a class="nav-cta" href="#prototype">Run the 4-second test ↓</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="kicker">The Nielsen Company · Product Design Internship · Brief 1</p>
+    <h1>The Conductor's Digital&nbsp;Companion</h1>
+    <p class="hero-sub">A one-thumb, four-second, full-sun ticketing app for BMTC &amp; BEST conductors — replacing the worn thermal ETM with a phone that keeps up with the bus.</p>
+    <div class="hero-chips">
+      <span class="chip chip-yellow">✋ One hand, jerky bus</span>
+      <span class="chip chip-yellow">⏱ 3 passengers &lt; 4 seconds</span>
+      <span class="chip chip-yellow">☀ Glanceable in high glare</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#prototype">▶ Try the live prototype</a>
+      <a class="btn btn-ghost" href="#flow">Read the thinking first</a>
+    </div>
+    <p class="byline">Aryan Sharma · October 2026 · All fares and routes illustrative, stated assumptions in <a href="#assumptions">§08</a></p>
+  </section>
+
+  <!-- 01 PROBLEM -->
+  <section class="sec" id="problem">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The machine is fighting the conductor</h2></div>
+    <div class="cols">
+      <div class="col-wide">
+        <p>Indian city buses run on the Electronic Ticketing Machine — a belt-hung thermal-printer brick that has barely changed in fifteen years. Watch any boarding and three things happen at once:</p>
+        <ul class="points">
+          <li><strong>The hardware is worn out.</strong> Keypads are pressed thousands of times a shift; legends fade, buttons stick, and the low-contrast LCD washes out completely past 30° of sun.</li>
+          <li><strong>Boarding is a burst, not a stream.</strong> Six to ten passengers swarm in twenty seconds, each with a different stop, while the driver holds the bus and traffic builds behind it.</li>
+          <li><strong>Cash is the real interface.</strong> The conductor's hands hold notes and coins; change is computed under pressure. The screen gets whatever attention is left over — which is almost none.</li>
+        </ul>
+        <p class="fineprint">No field access for this exercise, so this synthesis comes from the brief's constraints, public documentation of BMTC/BEST ETM operations, and everyday commute observation. Everything below is decision → rationale, and the assumptions register is in <a href="#assumptions">§08</a>.</p>
+      </div>
+      <aside class="col-side">
+        <div class="callout">
+          <p class="callout-kicker">The design target, precisely</p>
+          <p class="callout-big">2 taps + 1 confirm</p>
+          <p>to select a destination and issue for 3 passengers — measured at <strong>≈2.2s</strong> in the prototype against a 4.0s budget, leaving half the budget for physical cash exchange.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 02 PRINCIPLES -->
+  <section class="sec" id="principles">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Three constraints, three design principles</h2></div>
+    <p class="sec-intro">Every constraint converts directly into a rule the interface must obey. These three rules govern every screen that follows.</p>
+    <div class="cards-3">
+      <article class="card">
+        <p class="card-tag tag-red">One hand · jerky bus</p>
+        <h3>The One-Thumb Contract</h3>
+        <p>100% of per-transaction actions live inside the natural thumb arc — the bottom ~55% of the screen. The interaction grammar is tap-only: drags, pinches and long-presses lose to the road. Every mistake is reversible within a 3-second window.</p>
+      </article>
+      <article class="card">
+        <p class="card-tag tag-yellow">&lt; 4 seconds</p>
+        <h3>Defaults do the work</h3>
+        <p>GPS + route position predict the next stop and pre-load its fares, so destination selection is usually one tap on an already-ranked chip. The count pad is direct-set — tapping <em>3</em> <em>is</em> the entry, no plus-plus-plus. Printing runs in the background so the phone never blocks on hardware.</p>
+      </article>
+      <article class="card">
+        <p class="card-tag tag-green">Glare · micro-glances</p>
+        <h3>One glance, one answer</h3>
+        <p>AAA contrast (≥7:1) on a near-black base; money is always in safety-yellow. Hero numerals at 56–64px, weight ≥600, tabular figures so digits never shift. Each screen answers exactly one question — the fare, the change, or the count — never all three competing.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 03 FLOW + PROTOTYPE -->
+  <section class="sec" id="flow">
+    <div class="sec-head"><span class="sec-num">03</span><h2>The flow, live</h2></div>
+    <p class="sec-intro">This is a working prototype, not a mockup. Run the scripted <strong>4-second test</strong>, or tap through it yourself exactly as a conductor would — every control is thumb-placed. <a href="#prototype" class="proto-jump">Jump to the phone ↓</a></p>
+
+    <div class="steps">
+      <div class="step"><span class="step-t">0.0–0.6s</span><p><strong>Standby already knows.</strong> Raise-to-wake + GPS pin the stop. The screen shows <em>TRINITY CIRCLE — next stop</em> with fares pre-loaded and predicted chips ranked.</p></div>
+      <div class="step"><span class="step-t">0.6–1.1s</span><p><strong>Tap the destination chip.</strong> One tap confirms what the passengers just said. If they name something unusual, the full stop list is one more tap away.</p></div>
+      <div class="step"><span class="step-t">1.1–1.6s</span><p><strong>Tap “3”.</strong> Direct-set count pad: one tap is the whole entry. Concessions are a pre-sale toggle, not a per-passenger mode.</p></div>
+      <div class="step"><span class="step-t">1.6–2.1s</span><p><strong>Tap ISSUE.</strong> Green flash, double haptic, chime — confirmed by ear before the eyes check. Printing and change-counting now happen in parallel; the phone never waits.</p></div>
+    </div>
+
+    <figure class="fig">
+      <svg viewBox="0 0 760 250" role="img" aria-label="Four-second timeline showing taps finishing at 1.9 seconds with printing and cash handling in parallel">
+        <text x="0" y="18" class="svg-title">The 4-second budget, spent in parallel</text>
+        <g class="axis">
+          <line x1="90" y1="215" x2="710" y2="215"></line>
+          <text x="90" y="236">0s</text><text x="214" y="236">1s</text><text x="338" y="236">2s</text><text x="462" y="236">3s</text><text x="586" y="236">4s</text><text x="698" y="236">5s</text>
+        </g>
+        <line x1="586" y1="34" x2="586" y2="215" class="budget-line"></line>
+        <text x="578" y="28" class="svg-budget">4-second budget</text>
+        <g class="bar-row">
+          <text x="84" y="55" text-anchor="end">Passengers board</text>
+          <rect x="90" y="42" width="99" height="20" rx="6" class="bar bar-gray"></rect>
+        </g>
+        <g class="bar-row">
+          <text x="84" y="89" text-anchor="end">Tap destination</text>
+          <rect x="164" y="76" width="56" height="20" rx="6" class="bar bar-yellow"></rect>
+        </g>
+        <g class="bar-row">
+          <text x="84" y="123" text-anchor="end">Tap count “3”</text>
+          <rect x="220" y="110" width="56" height="20" rx="6" class="bar bar-yellow"></rect>
+        </g>
+        <g class="bar-row">
+          <text x="84" y="157" text-anchor="end">Tap ISSUE ✓</text>
+          <rect x="276" y="144" width="50" height="20" rx="6" class="bar bar-yellow"></rect>
+        </g>
+        <g class="bar-row">
+          <text x="84" y="191" text-anchor="end">Cash + change</text>
+          <rect x="326" y="178" width="186" height="20" rx="6" class="bar bar-gray"></rect>
+        </g>
+        <g class="bar-row">
+          <text x="84" y="211" text-anchor="end" class="svg-muted">Printer (background)</text>
+          <rect x="326" y="196" width="248" height="14" rx="6" class="bar bar-green-dashed"></rect>
+        </g>
+        <path d="M164 168 L164 176 L326 176" class="bracket"></path>
+        <text x="245" y="188" class="svg-note">≈1.6s of taps — the rest of the budget is physical work</text>
+      </svg>
+      <figcaption>Interaction time ≈2.2s from standby to confirm in the prototype run. The conductor's remaining attention goes to cash — where it should go.</figcaption>
+    </figure>
+  </section>
+
+  <!-- 04 REACHABILITY -->
+  <section class="sec" id="reach">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Navigation &amp; reachability strategy</h2></div>
+    <p class="sec-intro">Two ideas organize the whole app: <strong>a flat three-state loop</strong> for navigation, and <strong>the One-Thumb Contract</strong> for placement. Together they mean a conductor can run an entire shift without ever hunting for a screen.</p>
+
+    <div class="cols">
+      <div class="col-wide">
+        <figure class="fig">
+          <svg viewBox="0 0 760 300" role="img" aria-label="Navigation map: standby, sell and settle in a flat loop with a log drawer">
+            <text x="0" y="18" class="svg-title">Depth is 1 — nothing is more than one tap from the loop</text>
+            <g class="ia-node">
+              <rect x="60" y="120" width="180" height="84" rx="16"></rect>
+              <text x="150" y="156" text-anchor="middle" class="ia-name">STANDBY</text>
+              <text x="150" y="180" text-anchor="middle" class="ia-sub">next stop · fares ready</text>
+            </g>
+            <g class="ia-node ia-node-yellow">
+              <rect x="300" y="120" width="180" height="84" rx="16"></rect>
+              <text x="390" y="156" text-anchor="middle" class="ia-name">SELL</text>
+              <text x="390" y="180" text-anchor="middle" class="ia-sub">destination → count</text>
+            </g>
+            <g class="ia-node ia-node-green">
+              <rect x="540" y="120" width="180" height="84" rx="16"></rect>
+              <text x="630" y="156" text-anchor="middle" class="ia-name">SETTLE</text>
+              <text x="630" y="180" text-anchor="middle" class="ia-sub">change · UPI · print</text>
+            </g>
+            <g class="ia-edge">
+              <path d="M240 150 L296 150" marker-end="url(#arr)"></path>
+              <text x="268" y="138" text-anchor="middle" class="ia-label">tap stop</text>
+              <path d="M480 150 L536 150" marker-end="url(#arr)"></path>
+              <text x="508" y="138" text-anchor="middle" class="ia-label">ISSUE ✓</text>
+              <path d="M540 186 C460 240 320 240 244 186" marker-end="url(#arr)"></path>
+              <text x="390" y="236" text-anchor="middle" class="ia-label">NEXT</text>
+              <path d="M300 190 C250 220 190 220 152 208" marker-end="url(#arr)" class="ia-back"></path>
+              <text x="222" y="228" text-anchor="middle" class="ia-label">back / cancel</text>
+            </g>
+            <g class="ia-drawer">
+              <rect x="300" y="24" width="180" height="56" rx="12" class="ia-drawer-box"></rect>
+              <text x="390" y="50" text-anchor="middle" class="ia-sub">☰ SHIFT LOG · VOID</text>
+              <text x="390" y="70" text-anchor="middle" class="ia-label">rare — parked outside the thumb zone</text>
+              <line x1="390" y1="80" x2="390" y2="116" class="ia-back" stroke-dasharray="3 4"></line>
+            </g>
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="#9aa0a8"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>STANDBY → SELL → SETTLE → STANDBY. The conductor lives in this loop for eight hours; the shift log is the only thing outside it.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="cols">
+      <figure class="fig">
+        <svg viewBox="0 0 760 560" role="img" aria-label="Thumb reach heatmap on the phone: green effortless zone, amber stretch zone, red no-go zone, mirrored for left-hand mode">
+          <text x="0" y="18" class="svg-title">The One-Thumb Contract, mapped</text>
+          <defs>
+            <clipPath id="phoneClip"><rect x="50" y="60" width="300" height="470" rx="26"></rect></clipPath>
+            <clipPath id="miniClip"><rect x="470" y="290" width="150" height="235" rx="16"></rect></clipPath>
+          </defs>
+          <g>
+            <rect x="50" y="60" width="300" height="470" rx="26" class="phone-body"></rect>
+            <g clip-path="url(#phoneClip)">
+              <path d="M290 530 L130 530 A160 160 0 0 0 290 370 Z" fill="rgba(52,217,123,.22)"></path>
+              <path d="M290 530 L30 530 A260 260 0 0 0 290 270 Z" fill="rgba(255,176,32,.14)"></path>
+              <path d="M290 530 L-70 530 A360 360 0 0 0 290 170 Z" fill="rgba(255,93,93,.10)"></path>
+            </g>
+            <circle cx="290" cy="530" r="7" class="pivot"></circle>
+            <text x="290" y="556" text-anchor="middle" class="svg-label">thumb pivot — right hand</text>
+            <text x="170" y="500" class="zone zone-green">EFFORTLESS — 100% of sale taps</text>
+            <text x="120" y="430" class="zone zone-amber">STRETCH — occasional</text>
+            <text x="108" y="330" class="zone zone-red">NO-GO for sales — status, log, back</text>
+            <rect x="88" y="470" width="120" height="34" rx="10" class="wire wire-primary"></rect>
+            <text x="148" y="492" text-anchor="middle" class="wire-label">ISSUE · 96px</text>
+            <rect x="88" y="330" width="60" height="60" rx="10" class="wire"></rect>
+            <text x="118" y="365" text-anchor="middle" class="wire-label sm">1–9</text>
+            <rect x="88" y="90" width="70" height="26" rx="8" class="wire wire-dim"></rect>
+            <text x="123" y="107" text-anchor="middle" class="wire-label dim">☰ log</text>
+          </g>
+          <g>
+            <rect x="470" y="290" width="150" height="235" rx="16" class="phone-body"></rect>
+            <g clip-path="url(#miniClip)">
+              <path d="M500 510 L580 510 A80 80 0 0 1 500 430 Z" fill="rgba(52,217,123,.22)"></path>
+              <path d="M500 510 L420 510 A130 130 0 0 1 500 380 Z" fill="rgba(255,176,32,.14)"></path>
+            </g>
+            <circle cx="500" cy="510" r="5" class="pivot"></circle>
+            <text x="545" y="548" text-anchor="middle" class="svg-label">left-hand mode</text>
+            <text x="470" y="272" class="svg-label" text-anchor="start">☰ moves to the right corner, ISSUE to bottom-left.</text>
+          </g>
+        </svg>
+        <figcaption>Zones assume a 6.1″ phone held in one hand. Try it: the prototype ships a live <strong>left-hand toggle</strong> that mirrors every primary action.</figcaption>
+      </figure>
+
+      <div class="col-rules">
+        <ol class="rules">
+          <li><strong>Frequency maps to height.</strong> The more often an action happens per sale, the lower it sits. ISSUE and the count pad live in the effortless arc; the shift log lives in the reach-hurt corner — deliberately, because reaching there must never interrupt a sale.</li>
+          <li><strong>Tap-only grammar.</strong> No drags, no pinch-zoom, no press-and-hold required. A control that needs a steady hand is a control that fails on a speed breaker. Hold-to-repeat exists only as an accelerator, never as the only path.</li>
+          <li><strong>Primary action = bottom, big, dominant hand.</strong> ISSUE is a 96px-tall target in the bottom corner of the thumb arc — the easiest place to hit without looking. Left-hand mode mirrors the entire layout.</li>
+          <li><strong>Hardware does double duty.</strong> Volume keys act as +/− passenger count in the sell state — muscle memory carried over from physical ETM keys (simulated with +/− keys in the web prototype; captured natively on Android).</li>
+          <li><strong>Every error is a 3-second regret, not a 3-minute fix.</strong> Undo toast after every issue; direct-set count pad means a mis-tap is corrected by simply tapping the right number; void-from-log handles anything older.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 VISIBILITY -->
+  <section class="sec" id="visibility">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Built for full sun and half-second glances</h2></div>
+    <p class="sec-intro">Glare is an information problem, not a brightness problem: washed-out screens fail because their signal-to-noise collapses. The counter-strategy is to raise contrast, grow the signal, and delete the noise.</p>
+    <div class="cols">
+      <div class="col-wide">
+        <table class="spec-table">
+          <thead><tr><th>Element</th><th>Spec</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Base theme</td><td>#060708 on OLED, no large light surfaces</td><td>Black pixels emit nothing — the screen fights reflection instead of adding to it, and saves ~30% battery on AMOLED</td></tr>
+            <tr><td>Money &amp; fares</td><td>Safety yellow #FFD60A on black — ≈13.9:1</td><td>Yellow survives sun and peripheral vision best; reserving one color for money makes it pre-attentive</td></tr>
+            <tr><td>Hero numerals</td><td>56–64px, weight 700–800, tabular figures</td><td>Readable at arm's length in a moving bus; tabular figures stop digits jittering as totals change</td></tr>
+            <tr><td>Minimum text</td><td>18–20px, weight ≥500, all AAA (≥7:1)</td><td>Thin weights and mid-grays literally disappear past 30° incidence sunlight</td></tr>
+            <tr><td>One question per screen</td><td>Single hero answer: the fare, the change, or the count</td><td>A glance is 200–300ms; competing signals mean re-glancing, and re-glancing means missed passengers</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="col-side">
+        <p class="mini-label">Same simulated sun, both screens ↓</p>
+        <div class="sun-demo">
+          <div class="sun-card">
+            <div class="sun-screen sun-generic">
+              <span class="g-label">Total</span>
+              <span class="g-fare">₹30</span>
+              <span class="g-row">Trinity Circle · 3 Adults</span>
+            </div>
+            <p class="sun-cap">Typical light UI — signal washes out</p>
+          </div>
+          <div class="sun-card">
+            <div class="sun-screen sun-ours">
+              <span class="o-label">TOTAL</span>
+              <span class="o-fare">₹30</span>
+              <span class="o-row">TRINITY · 3 ADULT</span>
+            </div>
+            <p class="sun-cap">This design — same filter, still legible</p>
+          </div>
+        </div>
+        <p class="fineprint">Both cards carry the identical wash filter (brightness 1.9 · contrast 0.55). The live prototype has a real-time <strong>Glare</strong> toggle — flip it on and try the flow.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 06 FEEDBACK -->
+  <section class="sec" id="feedback">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Feedback you can trust by ear</h2></div>
+    <p class="sec-intro">A conductor's eyes belong to passengers and traffic, not the screen. So confirmations ride on sound and haptics first — the display is the backup, not the channel.</p>
+    <table class="spec-table wide">
+      <thead><tr><th>Event</th><th>Visual</th><th>Sound</th><th>Haptic</th></tr></thead>
+      <tbody>
+        <tr><td>Any tap</td><td>Control presses down (scale 0.97)</td><td>—</td><td>8ms tick</td></tr>
+        <tr><td>Issue confirmed</td><td>Green flash · shift counter increments</td><td>Two-note chime, 880→1320 Hz</td><td>Double pulse</td></tr>
+        <tr><td>Change ready</td><td>Change amount appears in hero size</td><td>Single 520 Hz blip</td><td>Short pulse</td></tr>
+        <tr><td>Rejected / mis-tap</td><td>Control shakes, nothing changes</td><td>Low 200 Hz buzz</td><td>Long buzz</td></tr>
+        <tr><td>Offline queue</td><td>Badge + running count, sale continues</td><td>Silent by design</td><td>None — never interrupts a sale</td></tr>
+      </tbody>
+    </table>
+    <p class="fineprint">Tones are tuned to cut 85 dB of diesel and traffic; the pattern language is three-meanings-only (done / money / wrong) so it never needs interpretation. Sound and haptics are simulated in the web prototype — on device, both are native.</p>
+  </section>
+
+  <!-- 07 EDGE CASES -->
+  <section class="sec" id="edges">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Edge cases are the product</h2></div>
+    <p class="sec-intro">Conductors work at the edge of the network, the battery and the law of large numbers. Every state below is implemented in the prototype unless marked otherwise.</p>
+    <div class="cards-grid">
+      <article class="edge"><h4>Dead zone offline</h4><p>Sales never stop. Tickets queue on-device with a visible count and sync when signal returns; nothing blocks, nothing beeps.</p></article>
+      <article class="edge"><h4>GPS pins the wrong stop</h4><p>One tap on the “wrong stop” chip opens the ranked stop list; the correction also re-trains that route's prediction weights.</p></article>
+      <article class="edge"><h4>Printer dies mid-shift</h4><p>The ETM's Bluetooth printer is reused, not required. Failover: digital ticket with QR for the passenger to show on inspection. (Simulated via the <em>Printer off</em> toggle.)</p></article>
+      <article class="edge"><h4>Wrong quantity, just issued</h4><p>3-second undo toast on every issue, then void-from-log for anything older. Direct-set count pad also makes the next sale self-correcting.</p></article>
+      <article class="edge"><h4>Passenger pays by UPI</h4><p>One tap switches settle to a full-screen dynamic QR; verification confirms with the same chime as cash. Change-calc never appears for UPI.</p></article>
+      <article class="edge"><h4>Short change</h4><p>Conductor marks “short ₹X given” in one tap — logged for the depot report instead of silently vanishing into today's tally.</p></article>
+      <article class="edge"><h4>Route diversion</h4><p>Manual stage mode: conductor picks the fare band directly (≤2 km / 3–5 km …), decoupled from the broken GPS trail.</p></article>
+      <article class="edge"><h4>More than 9 passengers</h4><p>Direct-set pad caps at 9; the app prompts a split sale — which mirrors how bundles of tickets are physically handed over anyway.</p></article>
+    </div>
+  </section>
+
+  <!-- 08 ASSUMPTIONS -->
+  <section class="sec" id="assumptions">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Assumptions &amp; what I'd test first</h2></div>
+    <div class="cols">
+      <div class="col-wide">
+        <h3 class="h3-minor">Stated assumptions</h3>
+        <ul class="points tight">
+          <li>The conductor holds the phone in the dominant hand with a wrist/shoulder strap; the other hand manages cash. Left-hand mode covers the reverse.</li>
+          <li>The existing Bluetooth thermal printer is reused as a companion; the phone is a standard Android device (AMOLED assumed for the battery claim).</li>
+          <li>Fares, stages and route 335E are illustrative, modeled on BMTC stage-based pricing; real fare tables would be config, not design.</li>
+          <li>Synthesis is desk research + commute observation; no conductor interviews were possible inside this exercise window.</li>
+        </ul>
+        <h3 class="h3-minor">First week with real conductors, I'd test</h3>
+        <ol class="rules tight">
+          <li>Ride-alongs on 3 routes × 5 conductors, measuring actual tap-to-tap times against my 2.2s claim — the prediction ranking is the biggest unknown.</li>
+          <li>Whether predicted destination chips match how conductors think (destinations vs. stage counts) — this decides the whole sell screen.</li>
+          <li>Chime legibility at real cabin noise, and whether the 3s undo window matches real error-notice latency.</li>
+          <li>Receipt policy with conductors and checkers: is a QR digital ticket acceptable evidence, or does paper remain mandatory on some services?</li>
+        </ol>
+      </div>
+      <aside class="col-side">
+        <div class="callout">
+          <p class="callout-kicker">The one-sentence thesis</p>
+          <p class="callout-big">Speed and safety come from defaults, not from faster fingers.</p>
+          <p>Prediction, pre-loading and parallel hardware shrink the interaction to two taps — so the conductor's scarce attention can go back to the road, the cash and the passengers.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROTOTYPE -->
+  <section class="sec proto-sec" id="prototype">
+    <div class="sec-head"><span class="sec-num">▶</span><h2>The prototype</h2></div>
+    <p class="sec-intro">Everything above is running in this phone. Start with <strong>Run the 4-second test</strong>, then tap through a sale yourself — and flip the toggles to stress-test glare, offline, printer failure and left-handed use.</p>
+
+    <div class="proto-wrap">
+      <div class="proto-rail">
+        <button class="rail-btn rail-run" id="runDemo" type="button">▶ Run the 4-second test</button>
+        <div class="rail-group">
+          <p class="rail-label">Stress tests</p>
+          <button class="rail-toggle" id="tglGlare" type="button" aria-pressed="false"><span class="dot"></span>Glare simulation</button>
+          <button class="rail-toggle" id="tglLefty" type="button" aria-pressed="false"><span class="dot"></span>Left-hand mode</button>
+          <button class="rail-toggle" id="tglOffline" type="button" aria-pressed="false"><span class="dot"></span>Offline (tunnel)</button>
+          <button class="rail-toggle" id="tglPrinter" type="button" aria-pressed="false"><span class="dot"></span>Printer off (QR failover)</button>
+        </div>
+        <div class="rail-group">
+          <p class="rail-label">Also try</p>
+          <p class="rail-note">Count pad: tap <kbd>+</kbd>/<kbd>−</kbd> or the number tiles.<br>Volume-key counting is simulated from your keyboard while on the count screen.</p>
+          <button class="rail-btn rail-reset" id="resetDemo" type="button">↺ Reset shift</button>
+        </div>
+      </div>
+
+      <div class="phone-stage">
+        <div class="phone" id="phone">
+          <div class="phone-screen" id="appRoot">
+            <div class="app-statusbar">
+              <span class="sb-time">9:41</span>
+              <span class="sb-title" id="sbRoute">335E · Majestic → Kadugodi</span>
+              <span class="sb-status"><span id="sbNet">5G</span><span class="sb-batt" id="sbBatt">87%</span></span>
+            </div>
+            <div id="screen" class="app-screen" aria-live="polite"></div>
+            <div id="toastHost"></div>
+            <div id="sheetHost"></div>
+            <div id="demoHost"></div>
+          </div>
+        </div>
+        <p class="phone-caption">Interactive — haptics fire on supported Android devices; audio needs one tap first (browser policy). Fares illustrative.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>Sawaari — The Conductor's Digital Companion.</strong> Design assignment for the Nielsen Company Product Design Internship, Brief 1.</p>
+  <p>Interactive prototype + case study · Aryan Sharma · October 2026 · Fares, routes and timings illustrative.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
